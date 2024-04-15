@@ -1,0 +1,26 @@
+spring:
+  servlet:
+    multipart:
+      max-file-size: 500MB  # 配置上传文件大小限制，单位为字节
+      max-request-size: 1GB  # 配置整个请求的文件大小限制，单位为字节
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/spring_demo?useUnicode=true&characterEncoding=utf8
+    username: root
+    password: 113110
+
+mybatis:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+
+aliyun:
+  oss:
+   endpoint: oss-cn-hangzhou.aliyuncs.com
+   accessKeyId: yourAccessKeyId
+   accessKeySecret: yourAccessKeySecret
+   bucketName: yourBucketName
+
+logging:
+  level:
+    org.springframework.jdbc.support.JdbcTransactionManager: debug

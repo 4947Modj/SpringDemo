@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.Mapper.EmpMapper">
+    <sql id="123">
+        select id, name, age
+        from emp
+    </sql>
+    <insert id="insertEmp">
+        insert into emp(username, password, name, gender, job, dept_id, create_time, update_time)
+        values (#{username}, #{password}, #{name}, #{gender}, #{job}, #{deptId}, #{createTime}, #{updateTime})
+    </insert>
+    <update id="updateEmp">
+        update emp
+        <set>
+            <if test="username != null">
+                username = #{username},
+            </if>
+            <if test="password != null">
+                password = #{password},
+            </if>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="gender != null">
+                gender = #{gender},
+            </if>
+            <if test="image != null">
+                image = #{image},
+            </if>
+            <if test="job != null">
+                job = #{job},
+            </if>
+            <if test="entrydate != null">
+                entrydate = #{entrydate},
+            </if>
+            <if test="deptId != null">
+                dept_id = #{deptId},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <!--collection:遍历的集合
+        item:遍历出来的元素
+        separator:分隔符
+        open:遍历开始前拼接的符号
+        close:遍历结束时拼接的符号-->
+    <delete id="deleteByIds">
+        delete from emp where id in
+        <foreach collection="ids" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    <delete id="deleteByDept">
+        delete from emp where dept_id = #{deptId}
+    </delete>
+
+    <!--resultType是单条记录封装的类型 -->
+    <select id="getById" resultType="com.example.demo.Entity.Emp">
+        <include refid="123"></include>
+        where id = #{id}
+    </select>
+    <select id="getTotalScore" resultType="java.lang.Long">
+        select count(*)
+        from Emp
+    </select>
+
+    <select id="getPageDataCondition" resultType="com.example.demo.Entity.Emp">
+        select *
+        from Emp
+        <where>
+            <if test="name != null and name != ''">
+                name like concat('%', #{name}, '%')
+            </if>
+            <if test="gender != null and gender != ''">
+                and gender = #{gender}
+            </if>
+            <if test="startTime != null and endTime != ''">
+                and entrydate between #{startTime} and #{endTime}
+            </if>
+        </where>
+    </select>
+</mapper>

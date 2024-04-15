@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.demo.Mapper.DeptMapper">
+    <delete id="deleteById">
+        delete from dept where id=#{id}
+    </delete>
+
+
+    <!--collection:遍历的集合
+        item:遍历出来的元素
+        separator:分隔符
+        open:遍历开始前拼接的符号
+        close:遍历结束时拼接的符号-->
+<!--    <delete id="deleteByIds">-->
+<!--        delete from emp where id in-->
+<!--        <foreach collection="list" item="id" open="(" separator="," close=")">-->
+<!--            #{id}-->
+<!--        </foreach>>-->
+<!--    </delete>-->
+
+    <!--resultType是单条记录封装的类型 -->
+<!--    <select id="getById" resultType="com.example.demo.Entity.Emp">-->
+<!--        <include refid="123"></include>-->
+<!--        where id = #{id}-->
+<!--    </select>-->
+    <select id="getAllDepts" resultType="com.example.demo.Entity.Dept">
+        select * from dept
+    </select>
+</mapper>
